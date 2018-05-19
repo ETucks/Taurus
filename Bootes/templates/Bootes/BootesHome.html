@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset='UTF-8'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/Bootes/css/Bootes.css">
+        <script type="text/javascript" src="/static/Dependencies/d3/d3.js"></script>
+    </head>
+    <body id=Main>
+        <div class=main>
+            <input id=DataTab type=radio name=tabs checked>
+            <label for=DataTab>Data</label>
+
+            <input id=AnalyticsTab type=radio name=tabs>
+            <label for=AnalyticsTab>Analytics</label>
+
+            <input id=NewsTab type=radio name=tabs>
+            <label for=NewsTab>News</label>
+
+            <form type="get" action="." style="margin: 0">
+                <input id="search_box" type="text" name="search_box" placeholder="Search a cryptocurrency...">
+                <button id="search_submit" type="submit">Submit</button>
+            </form>
+            <div class="Content">
+
+                <div id="DataContent">
+                    <body id="DataBody">
+                        <p>{{ TickSym }}<br />{{ current_time }}<br />Current Price: {{ currency_data }}</p>
+                        <script type="text/javascript" src="/static/Bootes/js/cryptoplot.js"></script>
+                        <script>DataPlotter({{ histo_crypto|safe }})</script>
+                    </body>
+                </div>
+
+                <div id=AnalyticsContent>
+                    <body id=AnalyticsBody>
+                        <select id=AnalyticsPicker>
+                            <option value=MovingAverage>Trends (coming soon)</option>
+                            <option value=ArbitrageOpportunities>Arbitrage Opportunities (coming soon)</option>
+                            <option value=IFR>Index Fund Rebalancing (coming soon)</option>
+                            <option value=Sentiment>Mathematical Models (coming soon)</option>
+                            <option value=MeanReversion>Mean Reversion (coming soon)</option>
+                            <option value=VWAP>Volume Weighted Average Price (coming soon)</option>
+                            <option value=TWAP>Time Weighted Average Price (coming soon)</option>
+                            <option value=POV>Percentage of Volume (coming soon)</option>
+                            <option value=IS>Implementation Shortfall (coming soon)</option>
+                            <option value=DeepCrawler>Deep Crawler (coming soon)</option>
+                            <option value=DYO>Design Your Own (coming soon)</option>                   
+                        </select>
+                    </body>
+                </div>
+
+                <div id=NewsContent>
+                    <body id=NewsBody>
+                    </body>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

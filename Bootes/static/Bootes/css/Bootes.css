@@ -1,0 +1,26 @@
+*, *:before, *:after {margin: 0; padding: 0; box-sizing: border-box;}
+body {background: #F0F0F0; color: #B62727; font: 14px 'Open Sans', sans-serif;}
+
+path.cryptoline {
+    fill: none;
+    stroke: #B62727;
+    stroke-width: 2px;
+}
+
+body.svg {
+    padding: 0px 20px;
+};
+
+.Content {background: #fff; color: #373737;}
+.Content > div {display: none; padding: 20px 25px 5px;}
+
+input[type='radio'] {display: none;}
+label {display: inline-block; padding: 15px 25px; font-weight: 600; text-align: center;}
+label:hover {color: #fff; cursor: pointer;}
+input[type='radio']:checked + label {background: #ed5a6a; color: #fff;}
+
+#DataTab:checked ~ .Content #DataContent,
+#AnalyticsTab:checked ~ .Content #AnalyticsContent {
+    background: #F0F0F0;
+    display: block;
+}
