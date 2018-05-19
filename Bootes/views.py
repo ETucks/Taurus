@@ -23,9 +23,7 @@ def DataSearch(request):
             exchange = 'CCCAGG'
             url+= '&e={}'.format(exchange)
         if all_data:
-            print('all_data is true')
             url+='&allData=True'
-        print('api url is: ' + url)
         page=requests.get(url)
         data=page.json()['Data']
         df=pd.DataFrame(data)
@@ -43,7 +41,6 @@ def DataSearch(request):
         current_time = datetime.datetime.now()
         histo_crypto = days_historical_data(search_query.upper()).tail(1440)
         histo_crypto['timestamp'] += datetime.timedelta(hours=5) #adjust cryptocompare timedata offset for tz:America/Toronto
-        print(histo_crypto['close'].tail(10))
         histo_crypto = pd.DataFrame.to_json(histo_crypto[['timestamp', 'close']].rename(index=str, columns={'timestamp':'x', 'close':'y'}), orient='records')
         return HttpResponse(template.render({"currency_data" : currency_data, "current_time" : current_time, "histo_crypto" : histo_crypto, 'TickSym' : TickSym}))
     else:

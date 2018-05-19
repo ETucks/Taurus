@@ -1,3 +1,4 @@
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,6 +17,10 @@
 
             <input id=NewsTab type=radio name=tabs>
             <label for=NewsTab>News</label>
+
+            <div id="container">
+                {%render_bundle 'main' %}
+            </div>
 
             <form type="get" action="." style="margin: 0">
                 <input id="search_box" type="text" name="search_box" placeholder="Search a cryptocurrency...">
