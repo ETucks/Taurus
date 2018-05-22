@@ -29,6 +29,8 @@
     "webpack-bundle-tracker": "^0.3.0"
   },
   "dependencies": {
-    "d3": "^5.4.0"
+    "bootstrap": "^4.1.1",
+    "d3": "^5.4.0",
+    "popper": "^1.0.1"
   }
 }

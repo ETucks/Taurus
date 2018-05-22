@@ -1,9 +1,10 @@
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
 	<head>
         <meta charset='UTF-8'>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/static/Bootes/css/Bootes.css">
         <script type="text/javascript" src="/static/Dependencies/d3/d3.js"></script>
     </head>
@@ -17,22 +18,129 @@
 
             <input id=NewsTab type=radio name=tabs>
             <label for=NewsTab>News</label>
-
-            <div id="container">
-                {%render_bundle 'main' %}
+            
+            <div class="MajorCurrencies container">
+                <script type="text/javascript" src="/static/Bootes/js/cryptoplot.js"></script>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="row">
+                            <p> {{ Q1 }} <br /> {{ Q1_now }}</p>
+                        </div>
+                        <BTCContent></BTCContent>
+                    </div>
+                    <div class="col-sm">
+                        <div class="row">
+                            <p>{{ Q2 }} <br /> {{ Q2_now }}</p>
+                        </div>
+                        <ETHContent></ETHContent>
+                    </div>
+                    <div class="col-sm">
+                        <div class="row">
+                            <p> {{ Q3 }} <br /> {{ Q3_now }}</p>
+                        </div>
+                        <XRPContent></XRPContent>
+                    </div>
+                    <script>DataPlotter({{ Q1_hist|safe }}, 'btc', true)</script>
+                    <script>DataPlotter({{ Q2_hist|safe }}, 'eth', true)</script>
+                    <script>DataPlotter({{ Q3_hist|safe }}, 'xrp', true)</script>
+                </div>
             </div>
 
-            <form type="get" action="." style="margin: 0">
-                <input id="search_box" type="text" name="search_box" placeholder="Search a cryptocurrency...">
-                <button id="search_submit" type="submit">Submit</button>
-            </form>
             <div class="Content">
-
                 <div id="DataContent">
                     <body id="DataBody">
-                        <p>{{ TickSym }}<br />{{ current_time }}<br />Current Price: {{ currency_data }}</p>
+                        <div class="SearchHead row">
+                            <div class="col-md">
+                                <div id="QuickInfo">
+                                    <p id="TickSym">{{ TickSym }}</p>
+                                    <p id="CurrentPrice">{{ CurrentPrice }}</p>
+                                    <p id="CurrentTime">As of: {{ CurrentTime }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <form class="form-inline" type="get" action="." style="margin: 0">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input class="form-control" id="search_box" type="text" name="search_box" placeholder="Find a cryptocurrency...">
+                                    </div>
+                                    <button class="btn btn-primary mb-2" id="search_submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a data-toggle="tab" class="Today_Tab nav-link active" href="#TodayTab">Today</a></li>
+                            <li class="nav-item"><a data-toggle="tab" class="Month_1_Tab nav-link" href="#Month1Tab">1M</a></li>
+                            <li class="nav-item"><a data-toggle="tab" class="Month_6_Tab nav-link" href="#Month6Tab">6M</a></li>
+                            <li class="nav-item"><a data-toggle="tab" class="Year_1_Tab nav-link" href="#Year1Tab">1Y</a></li>
+                            <li class="nav-item"><a data-toggle="tab" class="All_Tab nav-link" href="#AllTab">All</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="TodayTab", class="tab-pane active">
+                                <TodayContent></TodayContent>
+                            </div>
+                            <div id="Month1Tab", class="tab-pane" >
+                                <Month1Content></Month1Content>
+                            </div>
+                            <div id="Month6Tab", class="tab-pane" >
+                                <Month6Content></Month6Content>
+                            </div>
+                            <div id="Year1Tab", class="tab-pane" >
+                                <Year1Content></Year1Content>
+                            </div>
+                            <div id="AllTab", class="tab-pane" >
+                                <AllContent></AllContent>
+                            </div>
+                        </div>
+                    </div>
                         <script type="text/javascript" src="/static/Bootes/js/cryptoplot.js"></script>
-                        <script>DataPlotter({{ histo_crypto|safe }})</script>
+                        <script>DataPlotter({{ daily_hist|safe }}, 'today', false)</script>
+                        <script>
+                            i=0;
+                            $.ajaxSetup ({
+                                // Disable caching of AJAX responses
+                                // Used when debugging
+                                cache: false
+                            });
+                        </script>
+                        <!-- Pare down tabs by call to reusable React -->
+                        <script>
+                            i=0;
+                            $(".Month_1_Tab").click(function() {
+                                if(i==0) {
+                                    DataPlotter({{ m1_hist|safe }}, 'month1', false)
+                                }
+                                i+=1;
+                            })
+                        </script>
+                        <script>
+                            j=0;                            
+                            $(".Month_6_Tab").click(function() {
+                                if(j==0) {
+                                    DataPlotter({{ m6_hist|safe }}, 'month6', false)
+                                }
+                                j+=1;
+                            })
+                        </script>
+                        <script>
+                            k=0;                            
+                            $(".Year_1_Tab").click(function() {
+                                console.log('k: ' + k);
+                                if(k==0) {
+                                    DataPlotter({{ y1_hist|safe }}, 'year1', false)
+                                }
+                                k+=1;
+                            })
+                        </script>
+                        <script>
+                            l=0;                            
+                            $(".All_Tab").click(function() {
+                                console.log('l: ' + l);
+                                if(l==0) {
+                                    DataPlotter({{ all_hist|safe }}, 'all', false)
+                                }
+                                l+=1;
+                            })
+                        </script>
                     </body>
                 </div>
 

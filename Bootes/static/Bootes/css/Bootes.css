@@ -1,9 +1,26 @@
 *, *:before, *:after {margin: 0; padding: 0; box-sizing: border-box;}
-body {background: #F0F0F0; color: #B62727; font: 14px 'Open Sans', sans-serif;}
+body {background: #fcfcfc; color: #4286f4; font: 14px 'Open Sans', sans-serif;}
+
+
+.MajorCurrencies {
+	font-size: 10px;
+	color: #000000;
+}
+#QuickInfo {
+	line-height: 2px;
+}
+#TickSym {
+	color:#000000;
+	font-weight: bold;
+}
+
+#CurrentTime{
+	font-size:10px;
+}
 
 path.cryptoline {
     fill: none;
-    stroke: #B62727;
+    stroke: #4286f4;
     stroke-width: 2px;
 }
 
@@ -16,11 +33,11 @@ body.svg {
 
 input[type='radio'] {display: none;}
 label {display: inline-block; padding: 15px 25px; font-weight: 600; text-align: center;}
-label:hover {color: #fff; cursor: pointer;}
-input[type='radio']:checked + label {background: #ed5a6a; color: #fff;}
+label:hover {color: #000000; cursor: pointer;}
+input[type='radio']:checked + label {background: #4286f4; color: #000000;}
 
 #DataTab:checked ~ .Content #DataContent,
 #AnalyticsTab:checked ~ .Content #AnalyticsContent {
-    background: #F0F0F0;
+    background: #fcfcfc;
     display: block;
 }
