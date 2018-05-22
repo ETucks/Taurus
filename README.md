@@ -1,2 +1,2 @@
 # Taurus
-DataPageSS.xcf
+[Contribution guidelines](DataPageSS.xcf)
