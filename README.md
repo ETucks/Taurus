@@ -1,2 +1,2 @@
 # Taurus
-[Contribution guidelines](DataPageSS.xcf)
+[Screenshot](DataPageSS.png)
