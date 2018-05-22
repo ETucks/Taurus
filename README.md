@@ -1,2 +1,2 @@
 # Taurus
-[Screenshot](DataPageSS.png)
+![alt text](https://raw.githubusercontent.com/Etucks/Taurus/master/DataPageSS.png)
